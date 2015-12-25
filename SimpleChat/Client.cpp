@@ -21,10 +21,20 @@ int main(){
 
     bool isExit = false;
     char buffer[bufferSize];
-    char *ip= "127.0.0.1";
+    char const *ip= "127.0.0.1";
 
-    struct sockaddr_in;
-    struct server_addr;
+    struct sockaddr_in {};
+    sockaddr_in sockaddrIn;
+
+    struct sin_addr{
+        int s_addr;
+    };
+
+    struct server_addr {
+        int sin_family;
+        sin_addr sin_addr;
+        int sin_port;
+    } serverAddr;
 
     // init socket
 
@@ -37,12 +47,12 @@ int main(){
 
     cout << "Client socket created" << endl;
 
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(port);
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(port);
 
     // connection socket server
 
-    if(connect(client, (struct sockaddr*)&server_addr, sizeof(server_addr)) == 0){
+    if(connect(client, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == 0){
         cout << "Connecting to server..." << endl;
     }
 

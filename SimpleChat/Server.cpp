@@ -20,8 +20,11 @@ int main(){
 
     bool isExit = false;
     char buffer[bufferSize];
-    struct sockaddr_in;
-    struct server_addr;
+    struct sockaddr_in {};
+    sockaddr_in sockaddrIn;
+
+    struct server_addr serverAddr;
+
     socklen_t size;
 
     // init socket
@@ -35,18 +38,18 @@ int main(){
 
     cout << "Server socket connection created..." << endl;
 
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = htons(INADDR_ANY);
-    server_addr.sin_port = htons(port);
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = htons(INADDR_ANY);
+    serverAddr.sin_port = htons(port);
 
     // binding socket
 
-    if(bind(client, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0){
+    if(bind(client, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0){
         cout << "Error binding socket." << endl;
         exit(1);
     }
 
-    size = sizeof(server_addr);
+    size = sizeof(serverAddr);
     cout << "Looking for clients..." << endl;
 
     // listening socket
@@ -55,7 +58,7 @@ int main(){
 
     // accept client
 
-    server = accept(client, (struct sockaddr*)&server_addr, &size);
+    server = accept(client, (struct sockaddr*)&serverAddr, &size);
 
     if(server < 0){
         cout << "Error on accepting." << endl;
